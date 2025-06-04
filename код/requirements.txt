@@ -1,0 +1,10 @@
+aiofiles
+catboost
+fastapi
+numpy
+pandas
+python-multipart
+torch
+uvicorn
+transformers
+requests

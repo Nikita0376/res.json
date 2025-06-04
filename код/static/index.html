@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload File</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .upload-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+    .file-input-label {
+      margin-top: 10px;
+      padding: 10px;
+      border: 2px dashed #aaa;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      cursor: pointer;
+    }
+    .file-input-label:hover {
+      border-color: #666;
+    }
+    .file-input-container {
+      margin-top: 15px;
+      position: relative;
+    }
+    input[type="file"] {
+      display: none;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 2px dashed #aaa;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      cursor: pointer;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<div class="upload-container">
+  <h2>Загрузите ваши данные (в формате *.json)</h2>
+  <form action='/upload' enctype='multipart/form-data' method='post'>
+    <div class="file-input-container">
+        <label class="file-input-label" id="file-input-label">
+            <input type="file" id="i_f" name="file" hidden>
+            <span id="file-name">Нажмите для выбора файла</span>
+        </label>
+    </div>
+    <button type="submit">Загрузить</button>
+  </form>
+</div>
+
+<script>
+  const fileInput = document.getElementById('i_f');
+  const fileInputLabel = document.getElementById('file-input-label');
+  const textDiv = document.getElementById('file-name');
+
+  fileInput.addEventListener('change', (event) => {
+    const fileName = event.target.files[0]?.name || 'No file chosen';
+    textDiv.innerText = fileName
+  });
+</script>
+
+</body>
+</html>

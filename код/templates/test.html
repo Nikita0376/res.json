@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download JSON File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="downloadJson()">Download JSON File</button>
+
+    <script>
+        function downloadJson() {
+            // Sample JSON data
+            const jsonData = {
+                "name": "John Doe",
+                "age": 30,
+                "email": "johndoe@example.com",
+                "address": {
+                    "street": "123 Main St",
+                    "city": "Anytown",
+                    "state": "CA",
+                    "zip": "12345"
+                },
+                "phoneNumbers": [
+                    { "type": "home", "number": "212 555-1234" },
+                    { "type": "office", "number": "646 555-4567" }
+                ]
+            };
+
+            // Convert JSON object to a string
+            const jsonString = JSON.stringify(jsonData, null, 2);
+
+            // Create a Blob with the JSON data
+            const blob = new Blob([jsonString], { type: 'application/json' });
+
+            // Create a link element to download the file
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'data.json';
+
+            // Append the link to the body and click it to trigger the download
+            document.body.appendChild(link);
+            link.click();
+
+            // Remove the link from the document
+            document.body.removeChild(link);
+        }
+    </script>
+
+</body>
+</html>

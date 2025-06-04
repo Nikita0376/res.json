@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f5;
+      margin: 0;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 18px;
+      text-align: left;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #ddd;
+    }
+  </style>
+  <style>
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        /* border-radius: 5px; */
+    }
+    button:hover {
+        background-color: #255d27;
+    }
+</style>
+</head>
+<body>
+
+  <h2>Результат классификации</h2>
+  <button onclick="downloadJson()">Скачать результат</button>
+
+  <table>
+    <thead>
+      <tr>
+        {% for column in columns %}
+          <th>{{ column }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in data %}
+      <tr>
+        {% for item in row %}
+          <td>{{ item }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</body>
+<script>
+  function downloadJson() {
+            // Sample JSON data
+            // const jsonData = {
+            //     "name": "John Doe",
+            //     "age": 30,
+            //     "email": "johndoe@example.com",
+            //     "address": {
+            //         "street": "123 Main St",
+            //         "city": "Anytown",
+            //         "state": "CA",
+            //         "zip": "12345"
+            //     },
+            //     "phoneNumbers": [
+            //         { "type": "home", "number": "212 555-1234" },
+            //         { "type": "office", "number": "646 555-4567" }
+            //     ]
+            // };
+
+            // Convert JSON object to a string
+            const jsonString = JSON.stringify(JSON.parse('{{ for_download | safe }}'), null, 2);
+            // const jsonString = "{{ for_download }}"
+
+            // Create a Blob with the JSON data
+            const blob = new Blob([jsonString], { type: 'application/json' });
+
+            // Create a link element to download the file
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'data.json';
+
+            // Append the link to the body and click it to trigger the download
+            document.body.appendChild(link);
+            link.click();
+
+            // Remove the link from the document
+            document.body.removeChild(link);
+        }
+</script>
+</html>

@@ -20,13 +20,13 @@ def get_prediction(input_df: pd.DataFrame) -> list:
 
     # Обработка целевой переменной
     target = input_df['grade_proof']
-    tag2id = {elem: i for i, elem in enumerate(target.unique())}
-    id2tag = {i: elem for i, elem in enumerate(target.unique())}
+    tag2id = {elem: i for i, elem in enumerate(target.unique())} 
+    id2tag = {i: elem for i, elem in enumerate(target.unique())} 
     target = target.apply(lambda x: tag2id[x])
 
     # Загрузка модели и токенизатора
-    model = AutoModelForSequenceClassification.from_pretrained('danilka200300/results')
-    tokenizer = AutoTokenizer.from_pretrained('sergeyzh/rubert-tiny-turbo')
+    model = AutoModelForSequenceClassification.from_pretrained('model/results')
+    tokenizer = AutoTokenizer.from_pretrained('mbert/rubert-tiny-turbo')
 
     # Предсказание
     # токенизация текста
